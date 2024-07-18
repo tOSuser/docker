@@ -1,0 +1,24 @@
+logging {
+//          channel "misc" {
+//                    file "/var/log/named/misc.log" versions 4 size 4m;
+//                    print-time YES;
+//                    print-severity YES;
+//                    print-category YES;
+//          };
+  
+          channel "query" {
+                    //file "/var/log/named/query.log" versions 4 size 4m;
+                    stderr;
+                    print-time YES;
+                    print-severity NO;
+                    print-category NO;
+          };
+  
+//          category default {
+//                    "misc";
+//          };
+  
+          category queries {
+                    "query";
+          };
+};

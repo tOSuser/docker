@@ -1,0 +1,15 @@
+services:
+  nginxphp:
+    build: "."
+    image: nginxphp_image
+    restart: always
+    container_name: nginxphp
+    privileged: true
+    ports:
+      - 8080:8080
+    volumes:
+      - ${DOCKER_DATA_PATH}/nginxphp/www:/var/www/html
+      - ${DOCKER_DATA_PATH}/nginxphp/conf.d:/etc/nginx/conf.d
+      - ${DOCKER_DATA_PATH}/nginxphp/http.d:/etc/nginx/http.d
+    environment:
+      - DNSIP=8.8.8.8

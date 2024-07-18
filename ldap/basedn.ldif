@@ -1,0 +1,6 @@
+dn: ou=tpeople,dc=mydomain,dc=se
+objectClass: organizationalUnit
+ou: tpeople
+dn: ou=tgroups,dc=mydomain,dc=se
+objectClass: organizationalUnit
+ou: tgroups

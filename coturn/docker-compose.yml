@@ -1,0 +1,13 @@
+services:
+  coturn:
+    build: "."
+    image: coturn_image
+    restart: always
+    container_name: coturn
+    privileged: true
+    ports:
+      - 3478:3478
+      - 3478:3478/udp
+      - 5349:5349
+      - 5349:5349/udp
+      - 49152-65535:49152-65535/udp

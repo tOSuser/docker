@@ -1,0 +1,14 @@
+
+dn: %LDAP_DOMAIN%
+objectClass: dcObject
+objectClass: organization
+dc: mydomain
+o: mydomain
+
+dn: ou=%LDAP_BASE_USER%,%LDAP_DOMAIN%
+objectClass: organizationalUnit
+ou: %LDAP_BASE_USER%
+
+dn: ou=%LDAP_BASE_GROUP%,%LDAP_DOMAIN%
+objectClass: organizationalUnit
+ou: %LDAP_BASE_GROUP%

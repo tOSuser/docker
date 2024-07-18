@@ -1,0 +1,104 @@
+services:
+  cli:
+    build: "cli"
+    image: cli_image
+    restart: always
+    container_name: cli
+    networks:
+      vpnnetwork:
+        ipv4_address: ${CLI_IP}
+  ldap:
+    build: "ldap"
+    image: ldap_image
+    restart: always
+    container_name: ldap
+    networks:
+      vpnnetwork:
+        ipv4_address: ${LDAP_IP}
+  coturn:
+    build: "coturn"
+    image: coturn_image
+    restart: always
+    container_name: coturn
+    privileged: true
+    ports:
+      - 3478:3478
+      #- 3478:3478/udp
+      #- 5349:5349
+      #- 5349:5349/udp
+      #- 49152-65535:49152-65535/udp
+    networks:
+      vpnnetwork:
+        ipv4_address: ${COTURN_IP}
+  php-fpm:
+    build: "php-fpm"
+    image: php-fpm_image
+    restart: always
+    container_name: php-fpm
+    privileged: true
+    networks:
+      vpnnetwork:
+        ipv4_address: ${PHPFPM_IP}
+    volumes:
+      - www:/var/www/html
+  mysql:
+    build: "mysql"
+    image: mysql_image
+    restart: always
+    container_name: mysql
+    privileged: true
+    networks:
+      vpnnetwork:
+        ipv4_address: ${MYSQL_IP}
+    volumes:
+      - mysql-data:/data
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypass
+  nginx:
+    build: "nginx"
+    image: nginx_image
+    restart: always
+    container_name: nginx
+    privileged: true
+    ports:
+      - 8080:8080
+    networks:
+      vpnnetwork:
+        ipv4_address: ${NGINX_IP}
+    volumes:
+      - www:/var/www/html
+      - conf.d:/etc/nginx/conf.d
+      - http.d:/etc/nginx/http.d
+networks:
+  vpnnetwork:
+    name: webnetwork
+    driver: bridge
+    ipam:
+     config:
+       - subnet: ${NETWORK_SUBNET}
+         gateway: ${NETWORK_GETWAY}
+volumes:
+  www:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOCKER_DATA_PATH}/nginx/www
+  conf.d:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOCKER_DATA_PATH}/nginx/conf.d
+  http.d:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOCKER_DATA_PATH}/nginx/http.d
+  mysql-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOCKER_DATA_PATH}/mysql

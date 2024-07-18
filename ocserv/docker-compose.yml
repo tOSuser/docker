@@ -1,0 +1,20 @@
+services:
+  ocserv:
+    image: ocserv_image
+    restart: always
+    container_name: ocserv
+    privileged: true
+    hostname: www.example.com
+    ports:
+      - 4444:443/udp
+      - 4444:443
+    volumes:
+      - ${DOCKER_DATA_PATH}/ocserv:/etc/ocserv
+    environment:
+      - DNSIP=8.8.8.8
+      - CA_CN=VPN CA
+      - CA_ORG=Big Corp
+      - CA_DAYS=365
+      - SRV_CN=www.example.com
+      - SRV_ORG=Nexttop
+      - SRV_DAYS=365

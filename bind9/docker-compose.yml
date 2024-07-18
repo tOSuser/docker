@@ -1,0 +1,11 @@
+services:
+  bind9:
+    build: "."
+    image: bind9_image
+    restart: always
+    container_name: bind9
+    privileged: true
+    volumes:
+      - ${DOCKER_DATA_PATH}/bind:/etc/bind
+    environment:
+      - TESTENV=8.8.8.8

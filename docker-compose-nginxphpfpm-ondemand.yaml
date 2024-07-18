@@ -1,0 +1,54 @@
+services:
+  php-fpm:
+    build: "php-fpm-ondemand"
+    image: php-fpm-ondemand_image
+    restart: always
+    container_name: php-fpm-ondemand
+    privileged: true
+    networks:
+      vpnnetwork:
+        ipv4_address: ${PHPFPM_IP}
+    volumes:
+      - www:/var/www/html
+  nginx:
+    build: "nginx-ondemand"
+    image: nginx-ondemand_image
+    restart: always
+    container_name: nginx-ondemand
+    privileged: true
+    ports:
+      - 8080:8080
+    networks:
+      vpnnetwork:
+        ipv4_address: ${NGINX_IP}
+    volumes:
+      - www:/var/www/html
+      - conf.d:/etc/nginx/conf.d
+      - http.d:/etc/nginx/http.d
+networks:
+  vpnnetwork:
+    name: webnetwork
+    driver: bridge
+    ipam:
+     config:
+       - subnet: ${NETWORK_SUBNET}
+         gateway: ${NETWORK_GETWAY}
+volumes:
+  www:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOCKER_DATA_PATH}/nginx-ondemand/www
+  conf.d:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOCKER_DATA_PATH}/nginx-ondemand/conf.d
+  http.d:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOCKER_DATA_PATH}/nginx-ondemand/http.d

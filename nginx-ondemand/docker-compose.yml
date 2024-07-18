@@ -1,0 +1,13 @@
+services:
+  nginx:
+    build: "."
+    image: nginx-ondemand_image
+    restart: always
+    container_name: nginx-ondemand
+    privileged: true
+    ports:
+      - 8080:8080
+    volumes:
+      - ${DOCKER_DATA_PATH}/nginx-ondemand/www:/var/www/html
+      - ${DOCKER_DATA_PATH}/nginx-ondemand/conf.d:/etc/nginx/conf.d
+      - ${DOCKER_DATA_PATH}/nginx-ondemand/http.d:/etc/nginx/http.d

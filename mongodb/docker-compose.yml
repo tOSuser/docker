@@ -1,0 +1,13 @@
+services:
+  mongodb:
+    build: "."
+    image: mongodb_image
+    restart: always
+    container_name: mongodb
+    privileged: true
+    ports:
+      - 27017:27017
+    volumes:
+      - ${DOCKER_DATA_PATH}/mongodb:/data
+    environment:
+      - MONGODB_PASSWORD=mypass

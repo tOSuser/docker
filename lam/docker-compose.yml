@@ -1,0 +1,8 @@
+services:
+  lam:
+    image: lam
+    build: .
+    restart: always
+    ports:
+      - 8081:8081
+

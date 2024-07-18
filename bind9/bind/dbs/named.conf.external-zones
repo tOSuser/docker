@@ -1,0 +1,23 @@
+view external {
+        # allow any query
+        match-clients { any; };
+        # prohibit recursions
+        allow-query { any; };
+        # set zone for external
+        recursion yes;
+
+        forwarders {
+                8.8.8.8;
+                8.8.4.4;
+         };
+        forward only;
+
+        zone "vpnhome.com" IN {
+             type master;
+             file "/etc/bind/dbs/db.external.vpnhome.com";
+             #allow-transfer { 31.31.167.142; };
+        };
+        include "/etc/bind/named.conf.default-zones";
+	include "/etc/bind/dbs/named.conf.zones";
+	include "/etc/bind/blacklisted-manual-external.zones";
+};

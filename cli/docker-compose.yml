@@ -1,0 +1,6 @@
+services:
+  cli:
+    build: "."
+    image: cli_image
+    restart: always
+    container_name: cli

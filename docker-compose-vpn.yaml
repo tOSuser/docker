@@ -1,0 +1,56 @@
+services:
+  bind9:
+    build: "bind9"
+    image: bind9_image
+    restart: always
+    container_name: bind9
+    privileged: true
+    networks:
+      vpnnetwork:
+        ipv4_address: ${BIND9_IP}
+    volumes:
+      - bind:/etc/bind
+  ocserv:
+    build: "ocserv"
+    image: ocserv_image
+    restart: always
+    container_name: ocserv
+    privileged: true
+    networks:
+      vpnnetwork:
+        ipv4_address: ${OCSERV_IP}
+    hostname: www.example.com
+    ports:
+      - 4444:443/udp
+      - 4444:443
+    volumes:
+      - ocserv:/etc/ocserv
+    environment:
+      - DNSIP=172.20.0.10
+      - CA_CN=VPN CA
+      - CA_ORG=Big Corp
+      - CA_DAYS=365
+      - SRV_CN=www.example.com
+      - SRV_ORG=Nexttop
+      - SRV_DAYS=365
+networks:
+  vpnnetwork:
+    name: vpnnetwork
+    driver: bridge
+    ipam:
+     config:
+       - subnet: ${NETWORK_SUBNET}
+         gateway: ${NETWORK_GETWAY}
+volumes:
+  bind:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOCKER_DATA_PATH}/nginx/www
+  ocserv:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${DOCKER_DATA_PATH}/ocserv

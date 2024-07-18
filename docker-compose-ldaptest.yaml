@@ -1,0 +1,36 @@
+services:
+  cli:
+    build: "cli"
+    image: cli_image
+    restart: always
+    container_name: cli
+    networks:
+      vpnnetwork:
+        ipv4_address: ${CLI_IP}
+  ldap:
+    build: "ldap"
+    image: ldap_image
+    restart: always
+    container_name: ldap
+    networks:
+      vpnnetwork:
+        ipv4_address: ${LDAP_IP}
+  lam:
+    build: "lam"
+    image: lam_image
+    restart: always
+    container_name: lam
+    privileged: true
+    ports:
+      - 8081:8081
+    networks:
+      vpnnetwork:
+        ipv4_address: ${LAM_IP}
+networks:
+  vpnnetwork:
+    name: vpnnetwork
+    driver: bridge
+    ipam:
+     config:
+       - subnet: ${NETWORK_SUBNET}
+         gateway: ${NETWORK_GETWAY}

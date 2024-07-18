@@ -1,0 +1,9 @@
+services:
+  php-fpm:
+    build: "."
+    image: php-fpm_image
+    restart: always
+    container_name: php-fpm
+    privileged: true
+    ports:
+      - 9000:9000

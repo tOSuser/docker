@@ -1,0 +1,4 @@
+zone "home.vpn" {
+        type master;
+        file "/etc/bind/dbs/db.home.vpn";
+        };

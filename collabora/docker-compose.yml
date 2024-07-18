@@ -1,0 +1,9 @@
+services:
+  collabora:
+    build: "."
+    image: collabora_image
+    restart: always
+    container_name: collabora
+    privileged: true
+    ports:
+      - 9980:9980

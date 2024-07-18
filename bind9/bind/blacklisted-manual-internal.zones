@@ -1,0 +1,2 @@
+// Blocked sites
+include "/etc/bind/blacklisted-manual.zones";

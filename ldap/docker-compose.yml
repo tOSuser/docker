@@ -1,0 +1,6 @@
+services:
+  ldap:
+    build: "."
+    image: ldap_image
+    restart: always
+    container_name: ldap

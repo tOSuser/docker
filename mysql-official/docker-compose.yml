@@ -1,0 +1,13 @@
+services:
+  mysql-official:
+    build: "."
+    image: mysql-official_image
+    restart: always
+    container_name: mysql-official
+    privileged: true
+    ports:
+      - 3306:3306
+    volumes:
+      - ${DOCKER_DATA_PATH}/mysql-official:/data
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypass

@@ -1,0 +1,16 @@
+dn: cn=managers,ou=%LDAP_BASE_GROUP%,%LDAP_DOMAIN%
+objectClass: groupOfUniqueNames
+cn: managers
+uniqueMember: uid=administrator,ou=%LDAP_BASE_USER%,%LDAP_DOMAIN%
+uniqueMember: uid=testuser01,ou=%LDAP_BASE_USER%,%LDAP_DOMAIN%
+uniqueMember: uid=testuser02,ou=%LDAP_BASE_USER%,%LDAP_DOMAIN%
+uniqueMember: uid=testuser03,ou=%LDAP_BASE_USER%,%LDAP_DOMAIN%
+
+dn: cn=section01,ou=%LDAP_BASE_GROUP%,%LDAP_DOMAIN%
+objectClass: groupOfUniqueNames
+cn: section01
+uniqueMember: uid=administrator,ou=%LDAP_BASE_USER%,%LDAP_DOMAIN%
+uniqueMember: uid=testuser11,ou=%LDAP_BASE_USER%,%LDAP_DOMAIN%
+uniqueMember: uid=testuser12,ou=%LDAP_BASE_USER%,%LDAP_DOMAIN%
+uniqueMember: uid=testuser13,ou=%LDAP_BASE_USER%,%LDAP_DOMAIN%
+
